@@ -23,4 +23,6 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 class User extends Eloquent
 {
     protected $fillable = ['user_id', 'name', 'password', 'email'];
+
+    protected $hidden = ['_id', 'password'];
 }
