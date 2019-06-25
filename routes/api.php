@@ -17,5 +17,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/**
+ * @deprecated
+ */
 Route::post('/sign-in', 'LoginController@signIn');
 Route::post('/sign-up', 'LoginController@signUp');
+
+Route::prefix('login')->group(function () {
+    Route::post('/sign-in', 'LoginController@signIn');
+    Route::post('/sign-up', 'LoginController@signUp');
+});
+
+Route::prefix('plays')->group(function () {
+    Route::get('/', 'PlayController@get');
+    Route::post('/', 'PlayController@create');
+});

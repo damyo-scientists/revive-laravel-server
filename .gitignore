@@ -21,10 +21,10 @@ public/storage
 public/hot
 storage/*.key
 .env
-Homestead.yaml
-Homestead.json
 /.vagrant
 .phpunit.result.cache
+        Homestead.yaml
+        Homestead.json
 
 ### PhpStorm+all ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
