@@ -24,5 +24,5 @@ class User extends Eloquent
 {
     protected $fillable = ['user_id', 'name', 'password', 'email'];
 
-    protected $hidden = ['_id', 'password'];
+    protected $hidden = ['password'];
 }

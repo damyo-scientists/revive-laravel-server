@@ -10,22 +10,29 @@ namespace App\Services;
 
 
 use App\Models\Slot;
+use Log;
 
 class SlotService
 {
+    /**
+     * @param string $id
+     * @return \Illuminate\Database\Eloquent\Model|null|object|static
+     */
     public function getById(string $id)
     {
-        return Slot::where(['_id' => $id]);
+        return Slot::where(['_id' => $id])->first();
     }
 
     /**
-     * @param string $playId
+     * @param string $userId
      * @param int $slotNumber
-     * @return bool
+     * @return Slot|\Illuminate\Database\Eloquent\Model
      */
-    public function create(string $playId, int $slotNumber)
+    public function create(string $userId, int $slotNumber)
     {
-        return Slot::insert(['play_id' => $playId, 'slot_number' => $slotNumber]);
+        $result = Slot::create(['user_id' => $userId, 'slot_number' => $slotNumber]);
+        Log::debug('createSlot', ['result' => $result]);
+        return $result;
     }
 
     /**

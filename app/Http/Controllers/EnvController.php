@@ -9,15 +9,17 @@
 namespace App\Http\Controllers;
 
 
-class GameController
+use Illuminate\Http\Request;
+
+class EnvController
 {
     /**
      * PlayController constructor.
-     * @param PlayService $playService
+     * @param EnvService $envService
      */
-    public function __construct(PlayService $playService)
+    public function __construct(EnvService $envService)
     {
-        $this->playService = $playService;
+        $this->playService = $envService;
     }
 
     public function get(Request $request)

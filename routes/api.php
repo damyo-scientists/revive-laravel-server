@@ -28,6 +28,13 @@ Route::prefix('login')->group(function () {
     Route::post('/sign-up', 'LoginController@signUp');
 });
 
+Route::prefix('slot')->group(function () {
+    Route::get('/', 'SlotController@get');
+    Route::post('/', 'SlotController@create');
+    Route::put('/', 'SlotController@update');
+    Route::put('/', 'SlotController@delete');
+});
+
 Route::prefix('plays')->group(function () {
     Route::get('/', 'PlayController@get');
     Route::post('/', 'PlayController@create');

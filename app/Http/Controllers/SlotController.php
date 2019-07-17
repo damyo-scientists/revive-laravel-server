@@ -25,25 +25,41 @@ class SlotController
         $this->slotService = $slotService;
     }
 
+    /**
+     * @param Request $request
+     * @return SlotService|\Illuminate\Database\Eloquent\Model|object
+     */
     public function get(Request $request)
     {
         return $this->slotService->getById($request->input('id'));
     }
 
+    /**
+     * @param Request $request
+     * @return \App\Models\Slot|\Illuminate\Database\Eloquent\Model
+     */
     public function create(Request $request)
     {
-        $playId = $request->input('play_id');
+        $userId = $request->input('user_id');
         $slotNumber = $request->input('slot_number');
-        return $this->slotService->create($playId, $slotNumber);
+        return $this->slotService->create($userId, $slotNumber);
     }
 
+    /**
+     * @param Request $request
+     * @return int
+     */
     public function update(Request $request)
     {
-        return $this->slotService->update($request->input('_id'), $request->all());
+        return $this->slotService->update($request->input('id'), $request->all());
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function delete(Request $request)
     {
-        return $this->slotService->delete($request->input('_id'));
+        return $this->slotService->delete($request->input('id'));
     }
 }
