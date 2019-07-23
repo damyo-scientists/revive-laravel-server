@@ -10,47 +10,67 @@ namespace App\Services;
 
 
 use App\Models\Slot;
+use Illuminate\Http\Response;
 use Log;
 
 class SlotService
 {
     /**
-     * @param string $id
-     * @return \Illuminate\Database\Eloquent\Model|null|object|static
+     * @param string $userId
+     * @param int $slotNumber
+     * @return array
      */
-    public function getById(string $id)
+    public function get(string $userId, int $slotNumber)
     {
-        return Slot::where(['_id' => $id])->first();
+        $slot = Slot::where(['userId' => $userId, 'slotNumber' => $slotNumber])->first();
+        if (!$slot) {
+            return ['result' => 'fail', 'message' => '슬롯 로드에 실패했습니다. 아이디 정보를 확인하세요'];
+        } else {
+            return ['result' => 'success', 'data' => $slot];
+        }
     }
 
     /**
      * @param string $userId
      * @param int $slotNumber
-     * @return Slot|\Illuminate\Database\Eloquent\Model
+     * @return array
      */
     public function create(string $userId, int $slotNumber)
     {
-        $result = Slot::create(['user_id' => $userId, 'slot_number' => $slotNumber]);
+        $result = Slot::insert(['userId' => $userId, 'slotNumber' => $slotNumber]);
         Log::debug('createSlot', ['result' => $result]);
-        return $result;
+        if ($result) {
+            return [
+                'result' => 'success',
+                'message' => '슬롯 생성에 성공했습니다.',
+                'response_code' => Response::HTTP_CREATED
+            ];
+        } else {
+            return [
+                'result' => 'fail',
+                'message' => '슬롯 생성에 실패했습니다.',
+                'response_code' => Response::HTTP_INTERNAL_SERVER_ERROR
+            ];
+        }
     }
 
     /**
-     * @param string $id
+     * @param string $userId
+     * @param int $slotNumber
      * @param array $data
      * @return int
      */
-    public function update(string $id, array $data)
+    public function update(string $userId, int $slotNumber, array $data)
     {
-        return Slot::where(['_id' => $id])->update($data);
+        return Slot::where(['userId' => $userId, 'slotNumber' => $slotNumber])->update($data);
     }
 
     /**
-     * @param string $id
+     * @param string $userId
      * @return mixed
      */
-    public function delete(string $id)
+    public function delete(string $userId)
     {
-        return Slot::where(['_id' => $id])->delete();
+        return Slot::where(['userId' => $userId])->delete();
     }
 }

@@ -27,22 +27,34 @@ class SlotController
 
     /**
      * @param Request $request
-     * @return SlotService|\Illuminate\Database\Eloquent\Model|object
+     * @return \Illuminate\Http\JsonResponse
      */
     public function get(Request $request)
     {
-        return $this->slotService->getById($request->input('id'));
+        $userId = $request->input('userId');
+        $slotNumber = $request->input('slotNumber');
+        $result = $this->slotService->get($userId, $slotNumber);
+        if ($result['result'] == 'success') {
+            return response()->json(['data' => $result]);
+        } else {
+            return response()->json(['message' => $result['message'], $result['response_code']]);
+        }
     }
 
     /**
      * @param Request $request
-     * @return \App\Models\Slot|\Illuminate\Database\Eloquent\Model
+     * @return bool
      */
     public function create(Request $request)
     {
-        $userId = $request->input('user_id');
-        $slotNumber = $request->input('slot_number');
-        return $this->slotService->create($userId, $slotNumber);
+        $userId = $request->input('userId');
+        $slotNumber = $request->input('slotNumber');
+        $result = $this->slotService->create($userId, $slotNumber);
+        if ($result['result'] == 'success') {
+            return response()->json(['message' => $result['message']], $result['response_code']);
+        } else {
+            return response()->json(['message' => $result['message']], $result['response_code']);
+        }
     }
 
     /**
@@ -51,7 +63,7 @@ class SlotController
      */
     public function update(Request $request)
     {
-        return $this->slotService->update($request->input('id'), $request->all());
+        return $this->slotService->update($request->input('userId'), $request->input('slotNumber'), $request->input('data'));
     }
 
     /**

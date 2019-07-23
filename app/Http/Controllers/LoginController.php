@@ -28,7 +28,7 @@ class LoginController
 
     public function signIn(Request $request)
     {
-        $id = $request->input('user_id');
+        $id = $request->input('userId');
         $password = $request->input('password');
 
         $user = $this->userService->signIn($id, $password);
@@ -43,7 +43,7 @@ class LoginController
 
     public function signUp(Request $request)
     {
-        $userId = $request->input('user_id');
+        $userId = $request->input('userId');
         $password = $request->input('password');
 
         $user = $this->userService->signUp($userId, $password);

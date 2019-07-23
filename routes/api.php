@@ -28,7 +28,7 @@ Route::prefix('login')->group(function () {
     Route::post('/sign-up', 'LoginController@signUp');
 });
 
-Route::prefix('slot')->group(function () {
+Route::prefix('slots')->group(function () {
     Route::get('/', 'SlotController@get');
     Route::post('/', 'SlotController@create');
     Route::put('/', 'SlotController@update');

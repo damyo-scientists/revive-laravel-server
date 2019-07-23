@@ -16,7 +16,7 @@ class UserService
 {
     public function getUser(string $userId)
     {
-        $user = User::where(['user_id' => $userId]);
+        $user = User::where(['userId' => $userId]);
         if ($user) {
             return $user->first();
         } else {
@@ -52,7 +52,7 @@ class UserService
             ];
         }
 
-        $user = User::insert(['user_id' => $userId, 'password' => md5($password)]);
+        $user = User::insert(['userId' => $userId, 'password' => md5($password)]);
         if (!$user) {
             return [
                 'result' => 'fail',
